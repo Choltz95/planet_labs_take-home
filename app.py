@@ -58,13 +58,13 @@ def create_user():
     return jsonify({'user':user.as_dict()})
 
 @app.route('/users/<userid>', methods = ['DELETE'])
-def delete_user(id):
-    db.session.delete(Developer.query.get(id))
+def delete_user(userid):
+    db.session.delete(User.query.filter_by(userid = userid).first()) # userid should be unique
     db.session.commit()
     return jsonify({'result': True})
 
 @app.route('/users/<userid>', methods = ['PUT'])
-def update_user(id):
+def update_user(userid):
     return 0
 
 # -------- GROUPS (ignore for now)
