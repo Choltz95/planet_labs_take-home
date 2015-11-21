@@ -38,12 +38,12 @@ db.create_all()
 
 @app.route('/users/', methods = ['GET'])
 def index():
-    dev = User.query.all()
-    devs = []
-    if(dev is not None):
-        for d in range(len(dev)):
-            devs.append(dev[d].as_dict())
-        return jsonify({'users': devs})
+    user = User.query.all()
+    users = []
+    if(user is not None):
+        for d in range(len(user)):
+            users.append(user[d].as_dict())
+        return jsonify({'users': users})
     else:
         return jsonify({'users':'none'})
 
