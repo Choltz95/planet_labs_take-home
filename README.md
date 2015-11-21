@@ -20,7 +20,7 @@ Interface provides all ths usual REST operations on an sqlite database - ie GET,
 
 Test the app to be hosted on heroku
 or
-Clone the repository and run pip install requirements.txt, then run python app.py
+Clone the repository and run pip install -r requirements.txt, then run python app.py
 
 ## Tests
 
