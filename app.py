@@ -65,7 +65,13 @@ def delete_user(userid):
 
 @app.route('/users/<userid>', methods = ['PUT'])
 def update_user(userid):
-    return 0
+    user = User.query.filter_by(userid = userid).first()
+    user.userid = request.json.get('userid', user.userid)
+    user.first_name = request.json.get('first_name', user.first_name)
+    user.last_name = request.json.get('last_name', user.last_name)
+
+    db.session.commit()
+    return jsonify({'user':user.as_dict()})
 
 # -------- GROUPS (ignore for now)
 

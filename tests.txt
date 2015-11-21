@@ -3,3 +3,5 @@ curl -i http://127.0.0.1:5000/users/
 curl -H "Content-Type: application/json" -X POST -d '{"userid":"xyz"}' http://127.0.0.1:5000/users/
 
 curl -i -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/users/uid
+
+curl -i -H "Content-Type: application/json" -X PUT -d '{"first_name":"john"}' http://127.0.0.1:5000/users/abc
