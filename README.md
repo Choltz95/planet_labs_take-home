@@ -58,7 +58,7 @@ Result:
 
 ## Installation
 
-Test the app to be hosted on heroku
+Test the app to be hosted on heroku at http://warm-crag-1162.herokuapp.com/ 
 or
 Clone the repository and run pip install -r requirements.txt, then run python app.py
 
