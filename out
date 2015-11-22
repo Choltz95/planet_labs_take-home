@@ -1,0 +1,143 @@
+{
+  "group": {
+    "group_name": "cs", 
+    "id": 1
+  }
+}{
+  "group": {
+    "group_name": "phy", 
+    "id": 2
+  }
+}{
+  "group": {
+    "group_name": "mth", 
+    "id": 3
+  }
+}{
+  "first_name": "", 
+  "groups": [
+    "cs", 
+    "mth"
+  ], 
+  "id": 1, 
+  "last_name": "", 
+  "userid": "choltz"
+}{
+  "first_name": "", 
+  "groups": [
+    "phy"
+  ], 
+  "id": 2, 
+  "last_name": "", 
+  "userid": "jlee"
+}{
+  "first_name": "", 
+  "groups": [], 
+  "id": 3, 
+  "last_name": "", 
+  "userid": "xli"
+}{
+  "first_name": "", 
+  "groups": [], 
+  "id": 4, 
+  "last_name": "", 
+  "userid": "dfon"
+}{
+  "first_name": "", 
+  "groups": [], 
+  "id": 5, 
+  "last_name": "", 
+  "userid": "agre"
+}HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 118
+Server: Werkzeug/0.11.2 Python/2.7.9
+Date: Sun, 22 Nov 2015 03:22:47 GMT
+
+{
+  "first_name": "", 
+  "groups": [
+    "cs", 
+    "mth"
+  ], 
+  "id": 1, 
+  "last_name": "", 
+  "userid": "choltz"
+}HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 33
+Server: Werkzeug/0.11.2 Python/2.7.9
+Date: Sun, 22 Nov 2015 03:22:47 GMT
+
+{
+  "users": [
+    "choltz"
+  ]
+}HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 113
+Server: Werkzeug/0.11.2 Python/2.7.9
+Date: Sun, 22 Nov 2015 03:22:47 GMT
+
+{
+  "user": {
+    "first_name": "Chester", 
+    "id": 1, 
+    "last_name": "Holtz", 
+    "userid": "choltz"
+  }
+}HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 94
+Server: Werkzeug/0.11.2 Python/2.7.9
+Date: Sun, 22 Nov 2015 03:22:47 GMT
+
+{
+  "group_name": "mth", 
+  "id": 3, 
+  "users": [
+    "choltz", 
+    "xli", 
+    "agre"
+  ]
+}{
+  "result": true
+}{
+  "result": true
+}<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.</p>
+HTTP/1.0 404 NOT FOUND
+Content-Type: text/html
+Content-Length: 233
+Server: Werkzeug/0.11.2 Python/2.7.9
+Date: Sun, 22 Nov 2015 03:22:47 GMT
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.</p>
+HTTP/1.0 404 NOT FOUND
+Content-Type: text/html
+Content-Length: 233
+Server: Werkzeug/0.11.2 Python/2.7.9
+Date: Sun, 22 Nov 2015 03:22:47 GMT
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.</p>
+{
+  "result": true
+}{
+  "result": true
+}{
+  "result": true
+}{
+  "result": true
+}{
+  "result": true
+}{
+  "result": true
+}

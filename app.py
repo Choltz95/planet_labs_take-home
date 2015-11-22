@@ -1,7 +1,7 @@
 from flask import Flask, abort, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restless import APIManager
-import json
+import sys
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -22,7 +22,7 @@ class User(db.Model):
     last_name = db.Column(db.String(20))
     groups = db.relationship('Group', secondary=group_table, backref='users' )
 
-    def __init__(self, userid, first_name, last_name, groups):
+    def __init__(self, userid, first_name, last_name):
         self.userid = userid
         self.first_name = first_name
     	self.last_name = last_name
@@ -46,21 +46,6 @@ db.create_all()
 
 
 # -------- USERS 
-'''
-GET /users/<userid>
-    Returns the matching user record or 404 if none exist.
-'''
-@app.route('/users/', methods = ['GET'])
-def get_users():
-    user = User.query.all()
-    users = []
-    if(user is not None):
-        for d in range(len(user)):
-            users.append(user[d].as_dict())
-        return jsonify({'users': users})
-    else:
-        return jsonify({'users':'none'})
-
 @app.route('/users/<userid>', methods = ['GET'])
 def get_user(userid):
     user = User.query.filter_by(userid=userid).first()
@@ -88,10 +73,25 @@ def create_user():
         abort(400)
     if User.query.filter_by(userid=request.json['userid']).first() is not None:
         abort(404) # user already exists
-    user = User(request.json['userid'],request.json.get('first_name',''),request.json.get('last_name',''), request.json.get('groups',''))
+    user = User(request.json['userid'],request.json.get('first_name',''),request.json.get('last_name',''))
+
     db.session.add(user)
+
+    group_names = request.json.get('groups','')
+    # update association table
+    for g in group_names:
+        g = Group.query.filter_by(group_name = g).first()
+        user.groups.append(g)
+
     db.session.commit()
-    return jsonify({'user':user.as_dict()})
+
+    il_groups = user.groups # instrumented list of group objects
+    groups = []
+    for g in il_groups:
+        groups.append(g.group_name)
+    
+    u_dict = jsonify(user.as_dict(), groups = groups)
+    return u_dict
 
 '''
 PUT /users/<userid>
@@ -201,5 +201,6 @@ def delete_group(group_name):
     return jsonify({'result': True})
 
 if __name__ == '__main__':
-    app.debug = True
+    if (len(sys.argv) > 1):
+        if(sys.argv[1] == "-d"):   app.debug = True # debug
     app.run()

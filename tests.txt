@@ -1,7 +1,23 @@
-curl -i http://127.0.0.1:5000/users/
-
-curl -H "Content-Type: application/json" -X POST -d '{"userid":"xyz"}' http://127.0.0.1:5000/users/
-
-curl -i -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/users/uid
-
-curl -i -H "Content-Type: application/json" -X PUT -d '{"first_name":"john"}' http://127.0.0.1:5000/users/abc
+curl -H "Content-Type: application/json" -X POST -d '{"name":"cs"}' http://127.0.0.1:5000/groups/
+curl -H "Content-Type: application/json" -X POST -d '{"name":"phy"}' http://127.0.0.1:5000/groups/
+curl -H "Content-Type: application/json" -X POST -d '{"name":"mth"}' http://127.0.0.1:5000/groups/
+curl -H "Content-Type: application/json" -X POST -d '{"userid":"choltz", "groups":["cs","mth"]}' http://127.0.0.1:5000/users/
+curl -H "Content-Type: application/json" -X POST -d '{"userid":"jlee", "groups":["phy"]}' http://127.0.0.1:5000/users/
+curl -H "Content-Type: application/json" -X POST -d '{"userid":"xli"}' http://127.0.0.1:5000/users/
+curl -H "Content-Type: application/json" -X POST -d '{"userid":"dfon"}' http://127.0.0.1:5000/users/
+curl -H "Content-Type: application/json" -X POST -d '{"userid":"agre"}' http://127.0.0.1:5000/users/
+curl -i http://127.0.0.1:5000/users/choltz
+curl -i http://127.0.0.1:5000/groups/cs
+curl -i -H "Content-Type: application/json" -X PUT -d '{"first_name":"Chester", "last_name":"Holtz"}' http://127.0.0.1:5000/users/choltz
+curl -i -H "Content-Type: application/json" -X PUT -d '{"uids":["xli","agre"]}' http://127.0.0.1:5000/groups/mth
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/users/dfon
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/groups/phy
+curl -H "Content-Type: application/json" -X POST -d '{"userid":"choltz"}' http://127.0.0.1:5000/users/
+curl -i -H "Content-Type: application/json" -X PUT -d '{"first_name":"Jeremy", "last_name":"Warner"}' http://127.0.0.1:5000/users/jwar
+curl -i -H "Content-Type: application/json" -X PUT -d '{"uids":["xli","agre"]}' http://127.0.0.1:5000/groups/lit
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/users/choltz
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/users/jlee
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/users/xli
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/users/agre
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/groups/mth
+curl -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/groups/cs
