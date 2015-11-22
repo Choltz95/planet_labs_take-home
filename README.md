@@ -19,12 +19,12 @@ unfortunately, since I convert class attributes to a dictionary, I cannot retain
 ## Example usage
 
 ```bash
-{
 curl -H "Content-Type: application/json" -X POST -d '{"name":"cs"}' http://127.0.0.1:5000/groups/
 curl -H "Content-Type: application/json" -X POST -d '{"name":"mth"}' http://127.0.0.1:5000/groups/
 curl -H "Content-Type: application/json" -X POST -d '{"userid":"choltz", "groups":["cs","mth"]}' http://127.0.0.1:5000/users/
 curl -i -H "Content-Type: application/json" -X PUT -d '{"first_name":"Chester", "last_name":"Holtz"}' http://127.0.0.1:5000/users/choltz
-}
+```
+
 ```json
 {
   "group_name": "cs", 
