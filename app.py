@@ -20,14 +20,12 @@ class User(db.Model):
     userid = db.Column(db.String(20))
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(20))
-    #groups = db.Column(db.String(50)) # assume groups are single words without spaces
-    #group = db.relationship('Group',backref='user',lazy='dynamic')
+    groups = db.relationship('Group', secondary=group_table, backref='users' )
 
     def __init__(self, userid, first_name, last_name, groups):
         self.userid = userid
         self.first_name = first_name
     	self.last_name = last_name
-    	self.groups = groups
 
     # hack to return self atttributes as elements in dict
     def as_dict(self):
@@ -125,9 +123,18 @@ GET /groups/<group name>
     Returns a JSON list of userids containing the members of that group. Should
     return a 404 if the group doesn't exist.
 '''
-@app.route('/groups/', methods = ['GET'])
-def get_groups():
-    return 0
+@app.route('/groups/<group_name>', methods = ['GET'])
+def get_groups(group_name):
+    group = Group.query.filter_by(group_name=group_name).first()
+    if (group is None):
+        abort(404)
+    il_users = group.users # instrumented list of user objects
+    users = []
+    for u in il_users:
+        users.append(u.userid)
+    
+    g_dict = jsonify({'group': group.as_dict(), 'users': users})
+    return g_dict
 
 '''
 POST /groups
@@ -137,11 +144,11 @@ POST /groups
 '''
 @app.route('/groups/', methods = ['POST'])
 def create_group():
-    if not request.json or not 'group_name' in request.json:
+    if not request.json or not 'name' in request.json:
         abort(400)
-    if Group.query.filter_by(group_name=request.json['group_name']).first() is not None:
-        abort(404) # user already exists
-    group = Group(request.json['group_name'])
+    if Group.query.filter_by(group_name=request.json['name']).first() is not None:
+        abort(404) # group already exists
+    group = Group(request.json['name'])
     db.session.add(group)
     db.session.commit()
     return jsonify({'group':group.as_dict()})
@@ -153,7 +160,25 @@ PUT /groups/<group name>
 '''
 @app.route('/groups/<group_name>', methods = ['PUT'])
 def update_group(group_name):
-   return 0
+    if Group.query.filter_by(group_name=group_name).first() is None:
+        abort(404) # group already exists
+    uids = request.json['uids']
+
+    # update association table
+    group = Group.query.filter_by(group_name=group_name).first()
+    for uid in uids:
+        user = User.query.filter_by(userid = uid).first()
+        group.users.append(user)
+
+    db.session.commit()
+
+    il_users = group.users # instrumented list of user objects
+    users = []
+    for u in il_users:
+        users.append(u.userid)
+    
+    g_dict = jsonify({'group': group.as_dict(), 'users': users})
+    return g_dict
 
 '''
 DELETE /groups/<group name>
@@ -163,11 +188,10 @@ DELETE /groups/<group name>
 def delete_group(group_name):
     group = Group.query.filter_by(group_name = group_name).first()
     if (group is None):
-        abort(404) # user does not exist
+        abort(404) # group does not exist
     db.session.delete(group) # group_name should be unique
     db.session.commit()
     return jsonify({'result': True})
-
 
 if __name__ == '__main__':
     app.debug = True
