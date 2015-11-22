@@ -72,7 +72,7 @@ def create_user():
     if not request.json or not 'userid' in request.json:
         abort(400)
     if User.query.filter_by(userid=request.json['userid']).first() is not None:
-        abort(404) # user already exists
+        abort(409) # user already exists
     user = User(request.json['userid'],request.json.get('first_name',''),request.json.get('last_name',''))
 
     db.session.add(user)
@@ -160,7 +160,7 @@ def create_group():
     if not request.json or not 'name' in request.json:
         abort(400)
     if Group.query.filter_by(group_name=request.json['name']).first() is not None:
-        abort(404) # group already exists
+        abort(409) # group already exists
     group = Group(request.json['name'])
     db.session.add(group)
     db.session.commit()
@@ -174,7 +174,7 @@ PUT /groups/<group name>
 @app.route('/groups/<group_name>', methods = ['PUT'])
 def update_group(group_name):
     if Group.query.filter_by(group_name=group_name).first() is None:
-        abort(404) # group already exists
+        abort(404) # group does not exist
     uids = request.json['uids']
 
     # update association table
