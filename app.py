@@ -108,7 +108,13 @@ def update_user(userid):
     user.last_name = request.json.get('last_name', user.last_name)
 
     db.session.commit()
-    return jsonify({'user':user.as_dict()})
+    il_groups = user.groups # instrumented list of group objects
+    groups = []
+    for g in il_groups:
+        groups.append(g.group_name)
+    
+    u_dict = jsonify(user.as_dict(), groups = groups)
+    return jsonify(user.as_dict(), groups=groups)
 
 '''
 DELETE /users/<userid>
@@ -140,7 +146,7 @@ def get_groups(group_name):
     for u in il_users:
         users.append(u.userid)
     
-    g_dict = jsonify({'users': users})
+    g_dict = jsonify(users=users)
     return g_dict
 
 '''
@@ -158,7 +164,7 @@ def create_group():
     group = Group(request.json['name'])
     db.session.add(group)
     db.session.commit()
-    return jsonify({'group':group.as_dict()})
+    return jsonify(group.as_dict())
 
 '''
 PUT /groups/<group name>
