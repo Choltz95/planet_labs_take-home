@@ -14,6 +14,8 @@ Implementation of a REST service using Python and the Flask web frmework. A user
 ```
 Interface provides all ths usual REST operations on an sqlite database - ie GET, POST, PUT, DELETE.
 
+unfortunately, since I convert class attributes to a dictionary, I cannot retain any kind of key order in the json, so the responses are not as pretty as they could be.
+
 ## Example
 
 ## Installation
@@ -24,4 +26,4 @@ Clone the repository and run pip install -r requirements.txt, then run python ap
 
 ## Tests
 
-todo
+## Future

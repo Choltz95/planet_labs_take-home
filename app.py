@@ -66,7 +66,14 @@ def get_user(userid):
     user = User.query.filter_by(userid=userid).first()
     if (user is None):
         abort(404)
-    return jsonify({'user': user.as_dict()})
+
+    il_groups = user.groups # instrumented list of group objects
+    groups = []
+    for g in il_groups:
+        groups.append(g.group_name)
+    
+    u_dict = jsonify(user.as_dict(), groups = groups)
+    return u_dict
 
 '''
 POST /users
@@ -133,7 +140,7 @@ def get_groups(group_name):
     for u in il_users:
         users.append(u.userid)
     
-    g_dict = jsonify({'group': group.as_dict(), 'users': users})
+    g_dict = jsonify({'users': users})
     return g_dict
 
 '''
@@ -177,7 +184,7 @@ def update_group(group_name):
     for u in il_users:
         users.append(u.userid)
     
-    g_dict = jsonify({'group': group.as_dict(), 'users': users})
+    g_dict = jsonify(group.as_dict(), users=users)
     return g_dict
 
 '''
