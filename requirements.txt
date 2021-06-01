@@ -9,7 +9,7 @@ itsdangerous==0.24
 lxml==3.4.0
 requests==2.4.3
 requests-oauthlib==0.5.0
-urllib3==1.9.1
+urllib3==1.26.5
 wsgiref==0.1.2
 wstools==0.4.3
 gunicorn==19.3.0
